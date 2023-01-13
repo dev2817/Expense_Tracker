@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+   
+    <link rel="stylesheet" href="css\bootstrap.min.css">
+    <link rel="stylesheet" href="css\exp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <script src="js\exp.js"></script>
+    <script src="js\bootstrap.bundle.min.js">
+
+    </script>
+  </head>
+  <body>
+       
+        <nav class="navbar fixed-top navbar-expand-sm navbar-dark " style="background-color: rgb(68, 126, 250);">
+          <div class="container">   
+          <a href="#" class="navbar-brand mb-0 h1">EXPENSE TRACKER</a>
+          <button
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          class="navbar-toggler"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          >
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a href="index.html" class="nav-link active">
+                  Home
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a href="#" class="nav-link active">
+                  Expense
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a href="category.html" class="nav-link active">
+                  Category
+                </a>
+              </li>
+              <li class="nav-item active" >
+                <a href="limit.html" class="nav-link active">
+                  Limit
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div> 
+        </nav>    
+        <section class="expense">
+          <h1 class="title">Expense</h1>
+          <form action="index.html">
+          <div class="container">
+            <div class="expense-form">
+              <div class="form-field col-ld-6">
+                <input id="title" class="input-text" type="text" name="">
+                <label for="title" class="label">Title</label>
+              </div>
+              <div class="form-field col-ld-6">
+                <input id="Description" class="input-text" type="text" name="">
+                <label for="Description" class="label">Description</label>
+              </div>
+              <div class="form-field col-ld-6">
+                <input id="Amount" class="input-text" type="number" name="">
+                <label for="Amount" class="label">Amount</label>
+              </div>
+              <div class="form-field col-ld-6">
+                <input id="Category" class="input-text" type="text" name="">
+                <label for="Category" class="label">Category</label>
+              </div>
+              <div class="form-field col-ld-6">
+                <input class="submit-btn" type="submit" value="submit" name="">
+              </div>
+              <div class="form-field col-ld-6">
+                <input class="update-btn" type="update" value="update" name="">
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+<script>
+  var ExpForm = document.getElementById('exp-sub');
+  ExpForm.addEventListener('click',function(e){
+    e.preventDefault();
+
+    var title = document.getElementById('name').nodeValue
+    var Description = document.getElementById('expDesc').nodeValue
+    var categoryid = document.getElementById('category').nodeValue
+    var amount = document.getElementById('amount').nodeValue
+ 
+    const formData = {title, Description, categoryid, amount};
+    fetch("http://localhost:5134/api/Transaction",
+    {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      window.location = "index.html"
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  })
+
+</script>
+<section class="intro">
+  <div class="bg-image " style="background-color: #f5f7fa; padding-top: 70px;">
+    <div class="mask d-flex align-items-center h-50">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body p-0">
+                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: 550px">
+                  <table class="table table-striped mb-0">
+                    <thead style="background-color:rgb(68, 126, 250);">
+                 <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">category</th>
+            <th scope="col">amount</th>
+            <th scope="col">Date</th>
+            </tr>
+                    </thead>
+                    <tbody id="exp-table">
+                   
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="js\exp.js"></script>
+  </body>
+</html>
